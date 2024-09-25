@@ -548,6 +548,8 @@ void mtxf_shadow(Mat4 dest, Mat4 src, Vec3f upDir, Vec3f pos, Vec3f scale, s16 y
 void mtxf_align_terrain_normal(Mat4 dest, Vec3f upDir, Vec3f pos, s16 yaw);
 void mtxf_align_terrain_triangle(Mat4 mtx, Vec3f pos, s16 yaw, f32 radius);
 void mtxf_mul(Mat4 dest, Mat4 a, Mat4 b);
+void mtxf_mul_slow(Mat4 dest, Mat4 a, Mat4 b);
+void mtxf_mul_vec3_slow(Vec3f dest, Vec3f a, Mat4 b);
 void mtxf_scale_vec3f(Mat4 dest, Mat4 mtx, Vec3f s);
 void mtxf_mul_vec3s(Mat4 mtx, Vec3s b);
 

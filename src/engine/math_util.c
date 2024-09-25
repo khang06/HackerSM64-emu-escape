@@ -1,4 +1,5 @@
 #include <ultra64.h>
+#include <string.h>
 
 #include "sm64.h"
 #include "engine/graph_node.h"
@@ -717,6 +718,24 @@ void mtxf_mul(Mat4 dest, Mat4 a, Mat4 b) {
     }
     vec3f_add(&dest[3][0], &b[3][0]);
     ((u32 *) dest)[15] = FLOAT_ONE;
+}
+
+void mtxf_mul_slow(Mat4 dest, Mat4 a, Mat4 b) {
+    memset(dest, 0, sizeof(float) * 4 * 4);
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            for (int k = 0; k < 4; k++)
+                dest[i][j] += a[i][k] * b[k][j];
+        }
+    }
+}
+
+void mtxf_mul_vec3_slow(Vec3f dest, Vec3f a, Mat4 b) {
+    float w = a[0] * b[0][3] + a[1] * b[1][3] + a[2] * b[2][3] + b[3][3];
+    dest[0] = (a[0] * b[0][0] + a[1] * b[1][0] + a[2] * b[2][0] + b[3][0]) / w;
+    dest[1] = (a[0] * b[0][1] + a[1] * b[1][1] + a[2] * b[2][1] + b[3][1]) / w;
+    // Z coord isn't used
+    //dest[2] = (a[0] * b[0][2] + a[1] * b[1][2] + a[2] * b[2][2] + b[3][2]) / w;
 }
 
 /**

@@ -299,6 +299,7 @@ void handle_dp_complete(void) {
     sCurrentDisplaySPTask = NULL;
 }
 extern void crash_screen_init(void);
+extern void emulator_escape_init(void);
 
 void thread3_main(UNUSED void *arg) {
     setup_mesg_queues();
@@ -320,6 +321,8 @@ void thread3_main(UNUSED void *arg) {
     osSyncPrintf("Compiler: %s\n", __compiler__);
     osSyncPrintf("Linker  : %s\n", __linker__);
 #endif
+
+    emulator_escape_init();
 
     create_thread(&gSoundThread, THREAD_4_SOUND, thread4_sound, NULL, gThread4Stack + 0x2000, 20);
     osStartThread(&gSoundThread);

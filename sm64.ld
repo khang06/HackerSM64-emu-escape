@@ -164,6 +164,7 @@ SECTIONS
       BUILD_DIR/src/hvqm*.o(.text*);
       BUILD_DIR/src/usb*.o(.text*);
       BUILD_DIR/src/audio*.o(.text*);
+      BUILD_DIR/src/libpl*.o(.text*);
 #ifdef S2DEX_TEXT_ENGINE
       lib/libs2d_engine.a:*(.text*);
 #endif
@@ -188,6 +189,7 @@ SECTIONS
       BUILD_DIR/asm/n64_assert.o(.*data*);
       BUILD_DIR/src/boot*.o(.*data*);
       BUILD_DIR/src/audio*.o(.*data*);
+      BUILD_DIR/src/libpl*.o(.*data*);
 #ifdef S2DEX_TEXT_ENGINE
       lib/libs2d_engine.a:*(.*data*);
 #endif
@@ -208,6 +210,7 @@ SECTIONS
       BUILD_DIR/src/boot*.o(.rodata*);
       BUILD_DIR/src/usb*.o(.rodata*);
       BUILD_DIR/src/audio*.o(.rodata*);
+      BUILD_DIR/src/libpl*.o(.rodata*);
 #ifdef S2DEX_TEXT_ENGINE
       lib/libs2d_engine.a:*(.rodata*);
 #endif
@@ -229,6 +232,7 @@ SECTIONS
       BUILD_DIR/src/hvqm*.o(.*bss*);
       BUILD_DIR/src/usb*.o(.*bss*);
       BUILD_DIR/src/audio*.o(.*bss*);
+      BUILD_DIR/src/libpl*.o(.*bss*);
 #ifdef S2DEX_TEXT_ENGINE
       lib/libs2d_engine.a:*(.*bss*);
 #endif

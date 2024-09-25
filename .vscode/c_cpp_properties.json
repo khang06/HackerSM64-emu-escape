@@ -30,7 +30,7 @@
                 "NON_MATCHING=1",
                 "AVOID_UB=1"
             ],
-            "compilerPath": "/usr/bin/mips-linux-gnu-gcc",
+            "compilerPath": "/usr/bin/mips64-linux-gnu-gcc",
             "cStandard": "gnu17",
             "cppStandard": "gnu++14",
             "intelliSenseMode": "linux-gcc-x86"

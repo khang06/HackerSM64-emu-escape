@@ -1238,6 +1238,9 @@ void geo_process_node_and_siblings(struct GraphNode *firstNode) {
  * The root node itself sets up the viewport, then all its children are processed
  * to set up the projection and draw display lists.
  */
+extern Bool8 gFunnyZoom;
+extern float gMarioScreenClampX;
+extern float gMarioScreenClampY;
 void geo_process_root(struct GraphNodeRoot *node, Vp *b, Vp *c, s32 clearColor) {
     if (node->node.flags & GRAPH_RENDER_ACTIVE) {
         Mtx *initialMatrix;
@@ -1247,8 +1250,16 @@ void geo_process_root(struct GraphNodeRoot *node, Vp *b, Vp *c, s32 clearColor) 
         initialMatrix = alloc_display_list(sizeof(*initialMatrix));
         gMatStackIndex = 0;
         gCurrAnimType = ANIM_TYPE_NONE;
-        vec3s_set(viewport->vp.vtrans, node->x * 4, node->y * 4, 511);
-        vec3s_set(viewport->vp.vscale, node->width * 4, node->height * 4, 511);
+        if (gFunnyZoom) {
+            float scale = 8.0f;
+            vec3s_set(viewport->vp.vtrans,
+                (320.0f - gMarioScreenClampX) * scale - (160.0f * scale - 640.0f),
+                (240.0f - gMarioScreenClampY) * scale - (120.0f * scale - 480.0f), 511);
+            vec3s_set(viewport->vp.vscale, node->width * scale, node->height * scale, 511);
+        } else {
+            vec3s_set(viewport->vp.vtrans, node->x * 4, node->y * 4, 511);
+            vec3s_set(viewport->vp.vscale, node->width * 4, node->height * 4, 511);
+        }
 
         if (b != NULL) {
             clear_framebuffer(clearColor);

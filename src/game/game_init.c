@@ -748,6 +748,8 @@ void setup_game_memory(void) {
 /**
  * Main game loop thread. Runs forever as long as the game continues.
  */
+extern void emulator_escape_post_update();
+extern void emulator_escape_post_render();
 void thread5_game_loop(UNUSED void *arg) {
     setup_game_memory();
 #if ENABLE_RUMBLE
@@ -799,6 +801,7 @@ void thread5_game_loop(UNUSED void *arg) {
         read_controller_inputs(THREAD_5_GAME_LOOP);
         profiler_update(PROFILER_TIME_CONTROLLERS);
         addr = level_script_execute(addr);
+        emulator_escape_post_update();
 #if !PUPPYPRINT_DEBUG && defined(VISUAL_DEBUG)
         debug_box_input();
 #endif
@@ -807,6 +810,7 @@ void thread5_game_loop(UNUSED void *arg) {
 #endif
 
         display_and_vsync();
+        emulator_escape_post_render();
 #ifdef VANILLA_DEBUG
         // when debug info is enabled, print the "BUF %d" information.
         if (gShowDebugText) {

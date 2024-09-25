@@ -528,6 +528,9 @@ void render_hud_camera_status(void) {
  * Render HUD strings using hudDisplayFlags with it's render functions,
  * excluding the cannon reticle which detects a camera preset for it.
  */
+extern u64 gShellcodeBase;
+extern float gMarioScreenX;
+extern float gMarioScreenY;
 void render_hud(void) {
     s16 hudDisplayFlags = gHudDisplay.flags;
 
@@ -607,6 +610,13 @@ void render_hud(void) {
             render_debug_mode();
         }
 #endif
+
+        char buf[256];
+        sprintf(buf, "Shellcode base: 0x%llX", gShellcodeBase);
+        print_small_text(8, 8, buf, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_DEFAULT);
+        sprintf(buf, "Mario screen pos: (%d, %d)", (int)gMarioScreenX, (int)gMarioScreenY);
+        print_small_text(8, 16, buf, PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_DEFAULT);
+
 #ifdef PUPPYPRINT
         print_set_envcolour(255, 255, 255, 255);
 #endif

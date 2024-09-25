@@ -1694,6 +1694,7 @@ void queue_rumble_particles(struct MarioState *m) {
 /**
  * Main function for executing Mario's behavior. Returns particleFlags.
  */
+extern void emulator_escape_toggle_funny_zoom();
 s32 execute_mario_action(UNUSED struct Object *obj) {
     s32 inLoop = TRUE;
 
@@ -1702,6 +1703,8 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
     vec3f_copy(gMarioState->prevPos, gMarioState->pos);
 
     if (gMarioState->action) {
+        if (gPlayer1Controller->buttonPressed & L_TRIG)
+            emulator_escape_toggle_funny_zoom();
 #ifdef ENABLE_DEBUG_FREE_MOVE
         if (gPlayer1Controller->buttonDown & U_JPAD && !(gPlayer1Controller->buttonDown & L_TRIG)) {
             set_camera_mode(gMarioState->area->camera, CAMERA_MODE_8_DIRECTIONS, 1);
